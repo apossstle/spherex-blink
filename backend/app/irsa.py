@@ -174,12 +174,22 @@ class IrsaClient:
             "RESPONSEFORMAT": "votable",
             "MAXREC": str(settings.max_images_per_request * 4),
         }
-        try:
-            response = await self._client.get(settings.sia_url, params=params)
-            response.raise_for_status()
-        except httpx.HTTPError as exc:
-            raise ArchiveError(f"IRSA SIA query failed for {collection}: {exc}") from exc
-        return parse_sia_votable(response.content, collection)
+        # IRSA's SIA front end returns transient 502/503s under load; retry
+        # with backoff before giving up on a collection.
+        last_exc: Exception | None = None
+        for attempt in range(4):
+            try:
+                response = await self._client.get(settings.sia_url, params=params)
+                response.raise_for_status()
+                return parse_sia_votable(response.content, collection)
+            except httpx.HTTPStatusError as exc:
+                last_exc = exc
+                if exc.response.status_code < 500:
+                    break
+            except httpx.HTTPError as exc:
+                last_exc = exc
+            await asyncio.sleep(1.5 * 2**attempt)
+        raise ArchiveError(f"IRSA SIA query failed for {collection}: {last_exc}")
 
     async def find_exposures(self, ra: float, dec: float) -> list[Exposure]:
         results = await asyncio.gather(

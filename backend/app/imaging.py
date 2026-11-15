@@ -34,7 +34,7 @@ warnings.simplefilter("ignore", FITSFixedWarning)
 BAD_FLAG_NAMES = frozenset(
     os.getenv(
         "BAD_FLAG_NAMES",
-        "TRANSIENT,OVERFLOW,SUR_ERROR,NONFUNC,MISSING_DATA,HOT,COLD,NONLINEAR,PERSIST,OUTLIER,PHANMISS",
+        "TRANSIENT,OVERFLOW,SUR_ERROR,PHANTOM,REFERENCE,NONFUNC,MISSING_DATA,HOT,COLD,NONLINEAR,PERSIST,OUTLIER,PHANMISS",
     ).split(",")
 )
 # Used only if a FLAGS header does not define its own bit names.

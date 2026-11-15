@@ -1,0 +1,232 @@
+[
+  {
+    "target": "barnards_star",
+    "resolved": "fallback (Object name not recognised by CDS Sesame)",
+    "ra": 269.4463,
+    "dec": 4.7676,
+    "seconds": 129.9,
+    "exposures": 290,
+    "visits": 6,
+    "frames": [
+      [
+        "2025-08-25",
+        100,
+        0.997,
+        0.0
+      ],
+      [
+        "2025-09-30",
+        9,
+        0.988,
+        0.0
+      ],
+      [
+        "2026-03-16",
+        101,
+        0.998,
+        0.0
+      ],
+      [
+        "2026-05-04",
+        7,
+        0.995,
+        0.0
+      ],
+      [
+        "2026-08-21",
+        72,
+        0.997,
+        0.0
+      ],
+      [
+        "2026-09-22",
+        1,
+        0.863,
+        0.0
+      ]
+    ],
+    "spectrum_points": 48,
+    "wavelength_range": [
+      3.803869,
+      5.002416
+    ],
+    "collections": [
+      "spherex_dr1",
+      "spherex_qr3"
+    ],
+    "warnings": [
+      "68 exposure(s) could not be downloaded and were skipped."
+    ],
+    "ok": true
+  },
+  {
+    "target": "wise_0855",
+    "resolved": "fallback (Name resolver unavailable: )",
+    "ra": 133.7951,
+    "dec": -7.2451,
+    "seconds": 121.8,
+    "exposures": 252,
+    "visits": 4,
+    "frames": [
+      [
+        "2025-05-06",
+        30,
+        1.0,
+        0.0
+      ],
+      [
+        "2025-11-07",
+        110,
+        1.0,
+        0.0
+      ],
+      [
+        "2025-12-12",
+        17,
+        1.0,
+        0.0
+      ],
+      [
+        "2026-05-01",
+        95,
+        1.0,
+        0.0
+      ]
+    ],
+    "spectrum_points": 252,
+    "wavelength_range": [
+      0.744517,
+      5.00452
+    ],
+    "collections": [
+      "spherex_dr1"
+    ],
+    "warnings": [
+      "6 exposure(s) could not be downloaded and were skipped."
+    ],
+    "ok": true
+  },
+  {
+    "target": "eps_indi_b",
+    "resolved": "fallback (Object name not recognised by CDS Sesame)",
+    "ra": 331.0959,
+    "dec": -56.8009,
+    "seconds": 155.7,
+    "exposures": 337,
+    "visits": 3,
+    "frames": [
+      [
+        "2025-05-09",
+        118,
+        1.0,
+        0.0
+      ],
+      [
+        "2025-10-11",
+        146,
+        1.0,
+        0.0
+      ],
+      [
+        "2026-04-25",
+        73,
+        1.0,
+        0.0
+      ]
+    ],
+    "spectrum_points": 337,
+    "wavelength_range": [
+      0.749932,
+      4.989742
+    ],
+    "collections": [
+      "spherex_dr1"
+    ],
+    "warnings": [
+      "1 exposure(s) could not be downloaded and were skipped."
+    ],
+    "ok": true
+  },
+  {
+    "target": "rw_aur",
+    "resolved": true,
+    "ra": 76.95645,
+    "dec": 30.40133,
+    "seconds": 141.8,
+    "exposures": 335,
+    "visits": 3,
+    "frames": [
+      [
+        "2025-09-10",
+        112,
+        1.0,
+        0.0
+      ],
+      [
+        "2026-03-03",
+        114,
+        1.0,
+        0.0
+      ],
+      [
+        "2026-09-11",
+        109,
+        1.0,
+        0.0
+      ]
+    ],
+    "spectrum_points": 281,
+    "wavelength_range": [
+      0.740877,
+      5.011579
+    ],
+    "collections": [
+      "spherex_dr1",
+      "spherex_qr3"
+    ],
+    "warnings": [],
+    "ok": true
+  },
+  {
+    "target": "r_dra",
+    "resolved": true,
+    "ra": 248.16747,
+    "dec": 66.75499,
+    "seconds": 182.4,
+    "exposures": 538,
+    "visits": 3,
+    "frames": [
+      [
+        "2025-06-19",
+        153,
+        0.977,
+        0.0
+      ],
+      [
+        "2025-11-26",
+        211,
+        0.987,
+        0.0
+      ],
+      [
+        "2026-06-07",
+        174,
+        0.986,
+        0.0
+      ]
+    ],
+    "spectrum_points": 0,
+    "wavelength_range": [
+      null,
+      null
+    ],
+    "collections": [
+      "spherex_dr1",
+      "spherex_qr3"
+    ],
+    "warnings": [
+      "1 exposure(s) could not be downloaded and were skipped."
+    ],
+    "ok": true
+  }
+]

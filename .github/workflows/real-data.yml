@@ -4,10 +4,17 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: real-data
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -18,10 +25,18 @@ jobs:
       - name: Unit tests (synthetic SPHEREx data)
         run: pytest -q
       - name: End-to-end on live NASA/IPAC IRSA SPHEREx data
-        run: python scripts/real_data_check.py real-data-out
+        run: python scripts/real_data_check.py docs/real-data
       - name: Upload animations and summary
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: spherex-real-data
-          path: real-data-out
+          path: docs/real-data
+      - name: Publish results to the repository
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/real-data
+          git diff --cached --quiet || git commit -m "Real NASA data check results [skip ci]"
+          git push

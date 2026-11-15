@@ -15,6 +15,7 @@ import hashlib
 import io
 import logging
 import os
+import random
 import re
 import time
 from dataclasses import asdict, dataclass
@@ -218,11 +219,18 @@ class IrsaClient:
             os.utime(path)  # LRU bookkeeping
             return path.read_bytes()
 
-        async with self._sem:
-            last_exc: Exception | None = None
-            for attempt in range(3):
+        last_exc: Exception | None = None
+        for attempt in range(6):
+            wait = 1.0 * 2**attempt + random.uniform(0, 1.0)
+            async with self._sem:
                 try:
                     response = await self._client.get(url)
+                    if response.status_code in (429, 502, 503, 504):
+                        # IRSA throttles bursts with 503; honour Retry-After.
+                        retry_after = response.headers.get("Retry-After", "")
+                        if retry_after.isdigit():
+                            wait = max(wait, float(retry_after))
+                        raise ArchiveError(f"IRSA busy (HTTP {response.status_code})")
                     response.raise_for_status()
                     payload = response.content
                     if not payload.startswith(b"SIMPLE"):
@@ -230,9 +238,9 @@ class IrsaClient:
                     break
                 except (httpx.HTTPError, ArchiveError) as exc:
                     last_exc = exc
-                    await asyncio.sleep(0.5 * 2**attempt)
-            else:
-                raise ArchiveError(f"Cutout download failed: {last_exc}")
+            await asyncio.sleep(min(wait, 30.0))
+        else:
+            raise ArchiveError(f"Cutout download failed: {last_exc}")
 
         tmp = path.with_suffix(f".{os.getpid()}.tmp")
         tmp.write_bytes(payload)

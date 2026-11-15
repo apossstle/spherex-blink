@@ -13,6 +13,7 @@ from astropy.time import Time
 
 from .config import DETECTORS, settings
 from .imaging import (
+    BAD_FLAG_NAMES,
     Cutout,
     aperture_photometry,
     coadd,
@@ -103,7 +104,7 @@ def _stack_groups(
             names = flags_at(cutout, x, y)
             if names:
                 flag_names.update(names)
-            if any(n != "SOURCE" for n in names):
+            if any(n in BAD_FLAG_NAMES for n in names):
                 flagged_at_target += 1
 
         mjds = [c.exposure.mjd for c in group]

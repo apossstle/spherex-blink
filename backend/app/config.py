@@ -33,7 +33,7 @@ class Settings:
     cache_max_bytes: int = int(os.getenv("CACHE_MAX_MB", "2048")) * 1024 * 1024
 
     http_timeout_s: float = float(os.getenv("HTTP_TIMEOUT_S", "60"))
-    max_concurrent_downloads: int = int(os.getenv("MAX_CONCURRENT_DOWNLOADS", "16"))
+    max_concurrent_downloads: int = int(os.getenv("MAX_CONCURRENT_DOWNLOADS", "6"))
     max_images_per_request: int = int(os.getenv("MAX_IMAGES_PER_REQUEST", "600"))
 
     # SPHEREx native pixel scale is 6.15 arcsec.

@@ -97,7 +97,10 @@ async def main(out: Path) -> int:
             lines.append(f"| {r['target']} | yes | {r['exposures']} | {r['visits']} | {frames} | {r['spectrum_points']} | {lam_s} | {r['seconds']} |")
         else:
             lines.append(f"| {r['target']} | **no** | {r['error'][:120]} | | | | | |")
+    lines += ["", "Each animation shows the aligned frames (one per survey visit), north up, east left, target at the centre:", ""]
+    lines += [f"**{r['target']}**  \n![{r['target']}]({r['target']}.gif)" for r in summary if r.get("ok")]
     md = "\n".join(lines)
+    (out / "README.md").write_text("# SPHEREx Blink on real NASA SPHEREx data\n\nGenerated automatically by GitHub Actions from live NASA/IPAC IRSA data.\n\n" + md + "\n")
     (out / "summary.md").write_text(md)
     if os.getenv("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as fh:
